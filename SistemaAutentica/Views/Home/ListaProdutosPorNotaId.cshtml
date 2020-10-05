@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Produto>
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<SistemaAutentica.Areas.Identity.Data.SistemaAutenticaUser> SignInManager
+@inject UserManager<SistemaAutentica.Areas.Identity.Data.SistemaAutenticaUser> UserManager
+
+@{
+    ViewData["Title"] = "Lista de Produtos Por Nota Fiscal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>@ViewBag.Title</h3>
+
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdutoID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Custo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroNotaFiscal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NotaID)
+            </th>
+        </tr>
+    </thead>
+    @{
+
+    }
+    <tbody>
+        @foreach (var item in Model)
+        {
+            ViewBag.Custo = ViewBag.Custo + item.Custo;
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.ProdutoID)</td>
+            <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+            <td>@Html.DisplayFor(modelItem => item.Quantidade)</td>
+            <td>@Html.DisplayFor(modelItem => item.Custo)</td>
+            <td>@Html.DisplayFor(modelItem => item.Unidade)</td>
+            <td>@Html.DisplayFor(modelItem => item.NumeroNotaFiscal)</td>
+            <td>@Html.DisplayFor(modelItem => item.NotaID)</td>
+            @if (@User.Identity.IsAuthenticated)
+            {
+                <td>
+                    <a asp-action="EditaProduto" asp-route-id="@item.ProdutoID" class="btn btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.ProdutoID" class="btn btn-primary">Details</a>
+                    <a asp-action="DeleteProduto" asp-route-id="@item.ProdutoID" class="btn btn-danger">Delete</a>
+                </td>
+            } else
+            {
+                <td>Leitura</td>
+            }
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <p>Total: @Model.Count()</p>
+
+    <a asp-action="Index" class="btn btn-primary">back to List</a>
+
+</div>

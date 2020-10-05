@@ -1,0 +1,10 @@
+﻿@{
+    ViewData["Title"] = "teste";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Email: @ViewBag.id</p>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

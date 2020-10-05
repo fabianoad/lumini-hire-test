@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SistemaAutentica.Areas.Identity.Data.SistemaAutenticaUser>
+
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<SistemaAutentica.Areas.Identity.Data.SistemaAutenticaUser> SignInManager
+@inject UserManager<SistemaAutentica.Areas.Identity.Data.SistemaAutenticaUser> UserManager
+@{
+    ViewData["Title"] = "Menu Principal";
+
+}
+
+<h2>@ViewBag.Title</h2>
+<h1>@ViewBag.valor</h1>
+<table class="table table-striped">
+    <thead>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <tr>
+                <th>
+                    <a asp-action="CadastraNotaFiscal" class="text-dark p-2">Cadastra Nota Fiscal</a>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <a asp-action="CadastraProduto" class="text-dark p-2">Cadastra Produto</a>
+                </th>
+            </tr>
+        }
+            <tr>
+                <th>
+                    <a asp-action="SaidaProduto" class="text-dark p-2">Movimentacao</a>
+                </th>
+            </tr>
+            @if (User.Identity.IsAuthenticated && @UserManager.GetUserName(User) == "admin@sistemaautentica.com")
+            {
+                <tr>
+                    <th>
+                        <a asp-action="ListaUsuarios" class="text-dark p-2">Usuarios do Sistema</a>
+                    </th>
+                </tr>
+            }
+            <tr>
+                <th>
+                    <a asp-action="ListaNotaFiscal" class="text-dark p-2">Notas Fiscais</a>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <a asp-action="ListaProduto" class="text-dark p-2">Produtos</a>
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    <a asp-action="TOtais" class="text-dark p-2">Totais</a>
+                </th>
+            </tr>
+
+        </thead>
+
+</table>

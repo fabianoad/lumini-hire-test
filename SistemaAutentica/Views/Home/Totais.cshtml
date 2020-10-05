@@ -1,0 +1,33 @@
+﻿@model SistemaAutentica.Models.Total
+@using Microsoft.AspNetCore.Identity
+
+
+@{
+    ViewData["Title"] = "Listagem de Totais";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3>@ViewBag.Title</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Total Notas Fiscais
+            </th>
+        
+        </tr>
+    </thead>
+    <tbody>
+       
+            <tr>
+                <td>@Model.TotalNotaFiscal</td>
+            </tr>
+      
+    </tbody>  
+</table>
+
+<div>
+    <a asp-action="Index" class="btn btn-primary">back to List</a>
+</div>

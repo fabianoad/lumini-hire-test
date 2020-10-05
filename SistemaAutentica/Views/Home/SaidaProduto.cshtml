@@ -1,0 +1,49 @@
+﻿@model IEnumerable<NotaFiscal>
+
+
+@{
+    ViewData["Title"] = "Saida de Produtos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3>@ViewBag.Title</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NotaID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataInsertSistema)
+            </th>
+            <th>
+               Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.NotaID)</td>
+                <td>@Html.DisplayFor(modelItem => item.Numero)</td>
+                <td>@Html.DisplayFor(modelItem => item.Valor)</td>
+                <td>@Html.DisplayFor(modelItem => item.DataInsertSistema)</td>
+
+                <td>
+
+                    <a asp-action="ListaProdutosPorNotaId" asp-route-id="@item.NotaID" class="btn btn-primary">Ver Produtos</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index" class="btn btn-primary">back to List</a>
+</div>

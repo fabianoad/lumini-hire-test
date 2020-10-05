@@ -1,0 +1,75 @@
+﻿
+@model IEnumerable<NotaFiscal>
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<SistemaAutentica.Areas.Identity.Data.SistemaAutenticaUser> SignInManager
+@inject UserManager<SistemaAutentica.Areas.Identity.Data.SistemaAutenticaUser> UserManager
+
+
+@{
+    ViewData["Title"] = "Listagem de Notas fiscais";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3>@ViewBag.Title</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NotaID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataInsertSistema)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.NotaID)</td>
+                <td>@Html.DisplayFor(modelItem => item.Numero)</td>
+                <td>@Html.DisplayFor(modelItem => item.Valor)</td>
+                <td>@Html.DisplayFor(modelItem => item.DataInsertSistema)</td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (item.Valor != 0)
+                    {
+                        <td>
+                            <a asp-action="EditaNotaFiscal" asp-route-id="@item.NotaID" class="btn btn-warning">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.NotaID" class="btn btn-primary">Details</a>
+                            <a asp-action="" asp-route-id="@item.NotaID" class="btn btn-danger">Baixa Indisponivel</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a asp-action="EditaNotaFiscal" asp-route-id="@item.NotaID" class="btn btn-warning">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.NotaID" class="btn btn-primary">Details</a>
+                            <a asp-action="DeleteNotaFiscal" asp-route-id="@item.NotaID" class="btn btn-success">Dar Baixa</a>
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td>Leitura</td>
+                }
+                </tr>
+            }
+            </tbody>
+        </table>
+
+        <div>
+            <a asp-action="Index" class="btn btn-primary">back to List</a>
+        </div>
